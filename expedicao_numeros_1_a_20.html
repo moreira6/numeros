@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Expedição dos Números — 1 a 20</title>
+<style>
+:root{--ink:#203052;--purple:#6846d8;--blue:#3d9ee8;--green:#20a879;--yellow:#ffd15c;--pink:#ff719b}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:var(--ink);background:radial-gradient(circle at 90% 10%,#fff1c7 0 10%,transparent 30%),linear-gradient(135deg,#e5f4ff,#f1eaff 55%,#e6fff5)}
+header{max-width:1000px;margin:auto;padding:17px;display:flex;justify-content:space-between;align-items:center;gap:10px}.logo{font-weight:1000;font-size:clamp(19px,3vw,27px)}.logo span{color:var(--purple)}.chip{background:white;border-radius:99px;padding:9px 14px;font-weight:850;box-shadow:0 4px 14px #20305212}
+main{max-width:900px;margin:5px auto 40px;padding:0 15px}.panel{background:#fff;border-radius:26px;padding:clamp(18px,4vw,32px);box-shadow:0 14px 38px #25345b18}.center{text-align:center}.hidden{display:none!important}
+.heroicon{font-size:68px}.hero h1{font-size:clamp(27px,5vw,42px);margin:8px 0}.muted{color:#6d7891}.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}.mode{border:2px solid #e8e5f4;border-radius:18px;padding:15px 8px;background:white;cursor:pointer}.mode.active,.mode:hover{border-color:var(--purple);background:#f6f2ff}.mode b{display:block;font-size:17px}.mode span{font-size:13px;color:#6d7891}.mode i{font-style:normal;font-size:32px}
+.btn{border:0;border-radius:15px;padding:13px 22px;font-weight:900;font-size:16px;cursor:pointer;transition:.15s}.btn:hover{transform:translateY(-2px)}.primary{background:var(--purple);color:white;box-shadow:0 5px 0 #4c31ac}.green{background:var(--green);color:white;box-shadow:0 5px 0 #168866}.light{background:#f0edfa;color:#5944a4}.yellow{background:var(--yellow);color:#654600}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:850;margin-bottom:10px}.bar{height:12px;background:#eeeafa;border-radius:99px;overflow:hidden;margin-bottom:18px}.bar div{height:100%;background:linear-gradient(90deg,var(--purple),var(--pink));width:0;transition:.3s}
+.task{background:linear-gradient(135deg,#eff8ff,#f8f1ff);border-radius:22px;padding:20px;text-align:center}.task h2{margin:0 0 6px;font-size:clamp(20px,4vw,27px)}.task p{margin:0;color:#68748f}
+.objects{min-height:170px;display:flex;align-content:center;justify-content:center;align-items:center;flex-wrap:wrap;gap:7px;padding:18px;margin:12px auto;max-width:650px}.obj{font-size:clamp(28px,5vw,43px);width:clamp(38px,7vw,52px);height:clamp(38px,7vw,52px);display:grid;place-items:center;background:#fff;border-radius:13px;box-shadow:0 3px 9px #20305212;animation:pop .22s ease both}@keyframes pop{from{transform:scale(.7);opacity:.3}to{transform:scale(1);opacity:1}}
+.answers{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;max-width:560px;margin:18px auto}.num{border:2px solid #e5e0f1;border-radius:14px;background:white;padding:13px 4px;font-size:22px;font-weight:950;color:var(--ink);cursor:pointer}.num:hover{border-color:var(--purple);background:#f7f3ff}.num.selected{background:#6846d8;color:white;border-color:#6846d8}.num:disabled{cursor:default;opacity:.7}
+.feedback{display:none;padding:13px;border-radius:14px;font-weight:800;margin:14px auto;max-width:600px}.feedback.show{display:block}.good{background:#e4f8ee;color:#146b49}.bad{background:#fff0e8;color:#99501d}
+.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:16px}.mini{font-size:13px;color:#77829a;text-align:center;margin-top:12px}
+.sequence{display:flex;justify-content:center;align-items:center;gap:7px;flex-wrap:wrap;margin:25px 0}.slot{min-width:48px;height:52px;border:2px dashed #b9a9ed;border-radius:12px;display:grid;place-items:center;background:#fff;font-size:23px;font-weight:950}.slot.blank{background:#f1edff;color:var(--purple)}
+.result{text-align:center}.big{font-size:58px;font-weight:1000;color:var(--purple)}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}.stat{background:#f5f2ff;border-radius:16px;padding:14px}.stat b{display:block;font-size:27px;color:var(--purple)}
+@media(max-width:560px){.modes{grid-template-columns:1fr}.answers{grid-template-columns:repeat(4,1fr)}.stats{grid-template-columns:1fr}}
+</style></head>
+<body>
+<header><div class="logo">🧭 <span>Expedição</span> dos Números</div><div class="chip" id="score">⭐ 0 estrelas</div></header>
+<main>
+<section class="panel hero center" id="home">
+<div class="heroicon">🚀🔢</div><h1>Vamos explorar os números de 1 a 20!</h1>
+<p class="muted">Conte objetos, descubra números e complete sequências. Cada resposta certa rende uma estrela!</p>
+<h2>Escolha sua atividade</h2>
+<div class="modes">
+<div class="mode active" data-mode="count"><i>🍎</i><b>Conte e escolha</b><span>Conte os desenhos e marque o número</span></div>
+<div class="mode" data-mode="sequence"><i>🔢</i><b>Número que falta</b><span>Complete a sequência numérica</span></div>
+<div class="mode" data-mode="order"><i>🧩</i><b>Quem vem antes?</b><span>Descubra o número anterior ou seguinte</span></div>
+</div>
+<p class="muted">Cada rodada tem 20 desafios. Números de 1 até 20.</p>
+<button class="btn primary" id="start">Começar a expedição! 🚀</button>
+</section>
+<section class="panel hidden" id="game">
+<div class="row"><span id="step">Desafio 1 de 20</span><span id="streak">🔥 0 seguidas</span></div><div class="bar"><div id="fill"></div></div>
+<div class="task"><h2 id="question">Quantas maçãs você vê?</h2><p id="sub">Conte com atenção e escolha o número certo.</p><div id="visual"></div></div>
+<div class="answers" id="answers"></div>
+<div class="feedback" id="feedback" aria-live="polite"></div>
+<div class="actions"><button class="btn green hidden" id="next">Próximo desafio ➜</button></div>
+<p class="mini">Dica: conte devagar, apontando para cada desenho uma única vez.</p>
+</section>
+<section class="panel result hidden center" id="result">
+<div style="font-size:65px" id="medal">🏆</div><h1>Expedição concluída!</h1><div class="big" id="percent">0%</div><p>de aproveitamento</p>
+<div class="stats"><div class="stat"><b id="hits">0</b>Acertos</div><div class="stat"><b id="miss">0</b>Para praticar</div><div class="stat"><b id="stars">0</b>Estrelas</div></div>
+<p id="message"></p><div class="actions"><button class="btn primary" id="again">Jogar novamente ↻</button><button class="btn light" onclick="window.print()">Imprimir resultado</button></div>
+</section>
+</main>
+<script>
+let mode="count",items=[],pos=0,hits=0,streak=0,stars=0,locked=false;
+const $=id=>document.getElementById(id);
+document.querySelectorAll(".mode").forEach(el=>el.onclick=()=>{document.querySelectorAll(".mode").forEach(x=>x.classList.remove("active"));el.classList.add("active");mode=el.dataset.mode;});
+const pictures=[["🍎","maçãs"],["⭐","estrelas"],["🐟","peixinhos"],["🌼","flores"],["🚗","carrinhos"],["🦋","borboletas"],["🍓","morangos"],["⚽","bolas"],["🐞","joaninhas"],["🎈","balões"]];
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function makeItems(){
+ let a=[];
+ for(let i=0;i<20;i++){
+  let n=i+1;
+  if(mode==="count"){let pic=pictures[i%pictures.length];a.push({type:"count",n,emoji:pic[0],name:pic[1]});}
+  else if(mode==="sequence"){let start=Math.max(1,Math.min(16,n-2));let blank=start+Math.floor(Math.random()*4);a.push({type:"sequence",n:blank,start});}
+  else {let target=n;let ask=Math.random()<.5?"before":"after";let base=ask==="before"?target+1:target-1;base=Math.max(1,Math.min(20,base));a.push({type:"order",n:target,base,ask});}
+ }
+ return shuffle(a);
+}
+function start(){items=makeItems();pos=hits=streak=stars=0;locked=false;$("home").classList.add("hidden");$("result").classList.add("hidden");$("game").classList.remove("hidden");$("score").textContent="⭐ 0 estrelas";render();}
+function render(){
+ let q=items[pos];$("step").textContent=`Desafio ${pos+1} de 20`;$("fill").style.width=((pos+1)*5)+"%";$("streak").textContent=`🔥 ${streak} seguidas`;$("feedback").className="feedback";$("feedback").textContent="";$("next").classList.add("hidden");$("visual").innerHTML="";
+ let correct=q.n,options;
+ if(q.type==="count"){
+  $("question").textContent=`Quantos ${q.name} você vê?`;$("sub").textContent="Conte todos os desenhos e escolha o número.";
+  $("visual").className="objects";$("visual").innerHTML=Array.from({length:q.n},(_,i)=>`<span class="obj" style="animation-delay:${Math.min(i*.025,.4)}s">${q.emoji}</span>`).join("");
+ }else if(q.type==="sequence"){
+  $("question").textContent="Qual número está faltando?";$("sub").textContent="Observe a sequência e complete o espaço vazio.";
+  let start=Math.max(1,Math.min(16,q.n-2));let blank=q.n;
+  $("visual").className="sequence";$("visual").innerHTML=Array.from({length:5},(_,i)=>{let v=start+i;return `<div class="slot ${v===blank?"blank":""}">${v===blank?"?":v}</div>`}).join("");
+ }else{
+  $("question").textContent=q.ask==="before"?"Qual número vem antes?":"Qual número vem depois?";$("sub").textContent="Pense na ordem dos números.";
+  $("visual").className="sequence";$("visual").innerHTML=`<div class="slot">${q.base}</div><div class="slot blank">${q.ask==="before"?"?":"?"}</div>`;
+  // For "after", show base then ask next. For "before", show base then ask prior via prompt.
+  $("visual").innerHTML=q.ask==="before"?`<div class="slot blank">?</div><div class="slot">${q.base}</div>`:`<div class="slot">${q.base}</div><div class="slot blank">?</div>`;
+  correct=q.ask==="before"?q.base-1:q.base+1;
+ }
+ options=shuffle([...new Set([correct,...Array.from({length:3},()=>Math.max(1,Math.min(20,correct+Math.floor(Math.random()*7)-3)))])]);
+ while(options.length<4){let x=1+Math.floor(Math.random()*20);if(!options.includes(x))options.push(x);}
+ $("answers").innerHTML=options.map(n=>`<button class="num" data-value="${n}">${n}</button>`).join("");
+ document.querySelectorAll(".num").forEach(b=>b.onclick=()=>choose(Number(b.dataset.value),correct));
+ locked=false;
+}
+function choose(value,correct){
+ if(locked)return;locked=true;let ok=value===correct;
+ document.querySelectorAll(".num").forEach(b=>{b.disabled=true;if(Number(b.dataset.value)===correct)b.classList.add("selected");});
+ if(ok){hits++;streak++;stars++;$("feedback").className="feedback show good";$("feedback").textContent="🎉 Muito bem! Você acertou e ganhou uma estrela!";}
+ else{streak=0;$("feedback").className="feedback show bad";$("feedback").textContent=`Quase! A resposta certa é ${correct}. Continue praticando!`;}
+ $("score").textContent=`⭐ ${stars} estrelas`;$("streak").textContent=`🔥 ${streak} seguidas`;$("next").classList.remove("hidden");$("next").textContent=pos===19?"Ver resultado 🏁":"Próximo desafio ➜";
+}
+function next(){if(!locked)return;if(pos<19){pos++;render();}else finish();}
+function finish(){ $("game").classList.add("hidden");$("result").classList.remove("hidden");let p=Math.round(hits/20*100);$("percent").textContent=p+"%";$("hits").textContent=hits;$("miss").textContent=20-hits;$("stars").textContent=stars;$("medal").textContent=p===100?"🥇":p>=70?"🏆":"🌟";$("message").textContent=p===100?"Fantástico! Você conhece muito bem os números de 1 a 20!":p>=70?"Muito bem! Continue praticando para ficar craque!":"Você completou a expedição! Treine mais um pouco e tente novamente.";}
+$("start").onclick=start;$("next").onclick=next;$("again").onclick=()=>{$("result").classList.add("hidden");$("home").classList.remove("hidden");};
+</script></body></html>
